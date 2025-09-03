@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transferencia Bancaria | Grandes Cursos Digitales</title>
+    <link rel="icon" href="grandes cursos.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #f0f0f0;
+            background-color: #000000;
+            background-image: 
+                radial-gradient(circle at 10% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 90% 20%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 127, 0.3) 0%, transparent 50%);
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 700px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-logo {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #00FF7F;
+            text-shadow: 0 0 10px rgba(0, 255, 127, 0.7);
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #d0d0d0;
+        }
+
+        .timer-bar {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            height: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-progress {
+            height: 100%;
+            background-color: #FF00FF;
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+        }
+
+        .transfer-details {
+            text-align: left;
+            margin: 0 auto 30px;
+            max-width: 400px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .transfer-details li {
+            background-color: rgba(0, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            font-weight: 500;
+            color: #ffffff;
+            border-left: 3px solid #00FFFF;
+        }
+
+        .copy-btn {
+            background-color: #00FF7F;
+            color: black;
+            font-size: 1.2em;
+            font-weight: 700;
+            padding: 15px 25px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 255, 127, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .copy-btn:hover {
+            background-color: #39FF14;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(0, 255, 127, 0.6);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #00FFFF;
+            font-size: 1em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #00FFFF;
+            text-decoration: underline;
+        }
+
+        /* Estilos para el botón flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-float img {
+            width: 35px;
+            height: 35px;
+        }
+
+        /* Estilos para el botón grande de WhatsApp en la página de transferencia */
+        .send-proof-btn {
+            background-color: #25d366;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 700;
+            padding: 20px 30px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 15px rgba(37, 211, 102, 0.4);
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-proof-btn:hover {
+            background-color: #1DA851;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 18px rgba(37, 211, 102, 0.6);
+        }
+
+        .send-proof-btn img {
+            height: 35px;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            .main-logo {
+                width: 180px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .copy-btn {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8em;
+                bottom: 15px;
+                left: 15px;
+            }
+            .whatsapp-float img {
+                width: 30px;
+                height: 30px;
+            }
+            .send-proof-btn {
+                font-size: 1.2em;
+                padding: 15px 25px;
+            }
+            .send-proof-btn img {
+                height: 30px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="timer-bar">
+            <div class="timer-progress" id="timer-progress"></div>
+            <div class="timer-text" id="timer-text">5:00</div>
+        </div>
+
+        <img src="Diseño sin título.png" alt="Logo Grandes Cursos Digitales" class="main-logo">
+        <h1>Datos para tu transferencia</h1>
+        <p>Completa la transferencia con los siguientes datos y envíanos el comprobante por email para habilitar tu acceso inmediato al curso. ¡Estamos listos para recibirte!</p>
+        
+        <ul class="transfer-details">
+            <li>**Banco:** Mercado Pago</li>
+            <li>**Alias:** GrandesCursos.2025</li>
+            <li>**CBU/CVU:** 0000003100062992844813</li>
+            <li>**Titular:** Norma Beatriz Gallardo</li>
+            <li>**Monto:** $20.000 ARS</li>
+        </ul>
+
+        <button class="copy-btn" onclick="copyToClipboard('0000003100062992844813')">Copiar CVU</button>
+        <button class="copy-btn" onclick="copyToClipboard('GrandesCursos.2025')">Copiar Alias</button>
+        
+        <a href="https://wa.me/5493425924707?text=¡Hola!%20Acabo%20de%20realizar%20una%20transferencia%20para%20el%20curso.%20Adjunto%20comprobante." class="send-proof-btn" target="_blank">
+            <img src="whatsapp.png" alt="WhatsApp">
+            Enviar Comprobante por WhatsApp
+        </a>
+
+        <a href="pagos.html" class="back-link">← Volver a la página de pagos</a>
+
+    </div>
+
+    <a href="https://wa.me/5493425924707?text=Hola!%20Tengo%20una%20consulta%20sobre%20los%20cursos." class="whatsapp-float" target="_blank">
+        <img src="whatsapp.png" alt="WhatsApp">
+    </a>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('¡Copiado al portapapeles!');
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+        }
+
+        const duration = 300;
+        let timeLeft = duration;
+        const progressBar = document.getElementById('timer-progress');
+        const timerText = document.getElementById('timer-text');
+
+        const timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerText.textContent = '¡Tiempo agotado!';
+                progressBar.style.width = '0%';
+                return;
+            }
+
+            timeLeft--;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            const formattedTime = `${minutes.toString().padStart(1, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timerText.textContent = formattedTime;
+
+            const progress = (timeLeft / duration) * 100;
+            progressBar.style.width = `${progress}%`;
+
+        }, 1000);
+    </script>
+</body>
+</html>
